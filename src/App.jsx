@@ -13,8 +13,6 @@ function App() {
       <Button variant="outlined">Outlined</Button>
 
       <br />
-      <AccessAlarmIcon />
-      <ThreeDRotation />
       <HomeIcon />
       <HomeIcon color="primary" />
       <HomeIcon color="secondary" />
