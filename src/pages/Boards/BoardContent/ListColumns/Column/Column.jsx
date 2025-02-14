@@ -18,6 +18,8 @@ import Typography from '@mui/material/Typography'
 import { useState } from 'react'
 import ListCards from './ListCards/ListCards'
 import { mapOrder } from '~/utils/sorts'
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 
 function Column({ column }) {
   const [anchorEl, setAnchorEl] = useState(null)
@@ -27,16 +29,33 @@ function Column({ column }) {
 
   const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, '_id')
 
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
+    id: column._id,
+    data: { ...column }
+  })
+
+  const style = {
+    // touchAction: 'none',
+    transform: CSS.Translate.toString(transform),
+    transition
+  }
+
   return (
-    <Box sx={{
-      bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#333643' : '#ebecf0'),
-      minWidth: '300px',
-      maxWidth: '300px',
-      borderRadius: '6px',
-      ml: 2,
-      height: 'fit-content',
-      maxHeight: (theme) => `calc(${theme.trello.boardContentHeight} - ${theme.spacing(5)})`
-    }}>
+    <Box
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      sx={{
+        bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#333643' : '#ebecf0'),
+        minWidth: '300px',
+        maxWidth: '300px',
+        borderRadius: '6px',
+        ml: 2,
+        height: 'fit-content',
+        maxHeight: (theme) => `calc(${theme.trello.boardContentHeight} - ${theme.spacing(5)})`
+      }}
+    >
       {/* Box Column Header */}
       <Box sx={{
         height: (theme) => theme.trello.columnHeaderHeight,
