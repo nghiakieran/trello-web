@@ -8,7 +8,8 @@ import {
   MouseSensor,
   TouchSensor,
   DragOverlay,
-  defaultDropAnimationSideEffects
+  defaultDropAnimationSideEffects,
+  closestCorners
 } from '@dnd-kit/core'
 import { arrayMove } from '@dnd-kit/sortable'
 import { useEffect, useState } from 'react'
@@ -135,6 +136,7 @@ function BoardContent({ board }) {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       onDragOver={handleDragOver}
+      collisionDetection={closestCorners}
       sensors={sensors}>
       <Box sx={{
         width: '100%',
