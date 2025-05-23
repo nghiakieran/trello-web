@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Box from '@mui/material/Box'
 import ModeSelect from '~/components/ModeSelect/ModeSelect'
 import AppsIcon from '@mui/icons-material/Apps'
-import { ReactComponent as StarIcon } from '~/assets/trello.svg'
+import trelloIcon from '~/assets/trello.svg'
 import SvgIcon from '@mui/material/SvgIcon'
 import Typography from '@mui/material/Typography'
 import Workspaces from './Menus/Workspaces'
@@ -38,7 +38,11 @@ function AppBar() {
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <AppsIcon sx={{ color: 'white' }} />
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-          <SvgIcon component={StarIcon} inheritViewBox sx={{ color: 'white' }} fontSize='small' />
+          <Box
+            component="img"
+            src={trelloIcon}
+            sx={{ height: 20, width: 20, color: 'white' }}
+          />
           <Typography variant='span' sx={{ fontWeight: 'bold', color: 'white' }}>Trello</Typography>
         </Box>
 
