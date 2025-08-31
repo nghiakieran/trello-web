@@ -178,6 +178,7 @@ function Column({ column }) {
                 size='small'
                 autoFocus
                 variant='outlined'
+                data-no-dnd="true"
                 value={newCardTitle}
                 onChange={e => setNewCardTitle(e.target.value)}
                 sx={{
