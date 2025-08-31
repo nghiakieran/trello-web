@@ -35,7 +35,9 @@ function Card({ card }) {
         boxShadow: '0 1px 1px rgba(0, 0, 0, 0.2)',
         cursor: 'pointer',
         overflow: 'unset',
-        display: card?.FE_PlaceholderCard ? 'none' : 'block'
+        display: card?.FE_PlaceholderCard ? 'none' : 'block',
+        border: '1px solid transparent',
+        '&:hover': { borderColor: (theme) => theme.palette.primary.main }
         // overflowY: card?.FE_PlaceholderCard ? 'hidden' : 'unset',
         // height: card?.FE_PlaceholderCard ? '0px' : 'none'
       }}
