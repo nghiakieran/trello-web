@@ -202,9 +202,10 @@ function BoardContent({ board, createNewColumn, createNewCard, moveColumns }) {
         // const dndOrderedColumnsIds = dndOrderedColumns.map(c => c._id)
         // console.log(dndOrderedColumns)
         // console.log(dndOrderedColumnsIds)
-        moveColumns(dndOrderedColumns)
+
         // Vẫn gọi update State để tránh flickering trong khi chờ gọi API update (trick)
         setOrderedColumns(dndOrderedColumns)
+        moveColumns(dndOrderedColumns)
       }
     }
 
