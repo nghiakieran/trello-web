@@ -24,14 +24,14 @@ import { TextField } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { toast } from 'react-toastify'
 
-function Column({ column }) {
+function Column({ column, createNewCard }) {
   const [anchorEl, setAnchorEl] = useState(null)
   const [openNewCardForm, setOpenNewCardForm] = useState(false)
   const toggleOpenNewCardForm = () => setOpenNewCardForm(!openNewCardForm)
 
   const [newCardTitle, setNewCardTitle] = useState('')
 
-  const handleAddCard = () => {
+  const handleAddCard = async () => {
     if (!newCardTitle) {
       toast.error('Please enter Card title!', {
         position: 'bottom-right'
@@ -39,7 +39,13 @@ function Column({ column }) {
       return
     }
 
-    // Handle call api add
+    const newCardData = {
+      title: newCardTitle,
+      columnId: column._id
+    }
+
+    await createNewCard(newCardData)
+
     toggleOpenNewCardForm()
     setNewCardTitle('')
   }
@@ -152,7 +158,7 @@ function Column({ column }) {
             p: 2
           }}
         >
-          { openNewCardForm ? (
+          { !openNewCardForm ? (
             <Box
               sx={{
                 height: '100%',
