@@ -2061,6 +2061,11 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
+material-ui-confirm@^3.0.9:
+  version "3.0.18"
+  resolved "https://registry.yarnpkg.com/material-ui-confirm/-/material-ui-confirm-3.0.18.tgz#4ce12f7d03c1a15f402cd723f6cbf8d5985bb82b"
+  integrity sha512-EzVdPVKDJTfDDTtzCQm2P5F/UznsIhSa6I2DHZCOhGUXKEBFUfrGXK8QGXTZ1Yctresz/s1HmYNy04IMJNF1Hw==
+
 math-intrinsics@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/math-intrinsics/-/math-intrinsics-1.1.0.tgz#a0dd74be81e2aa5c2f27e65ce283605ee4e2b7f9"
@@ -2640,7 +2645,8 @@ vite-plugin-svgr@^4.3.0:
     lodash "^4.17.21"
     react "^18.2.0"
     react-dom "^18.2.0"
-    vite-trello-web-base-project "file:C:/Users/ACER/AppData/Local/Yarn/Cache/v6/npm-vite-trello-web-base-project-0.0.0-67d4bb29-3aba-4311-b198-6392df27bb82-1756624978119/node_modules/vite-trello-web-base-project"
+    react-toastify "^9.1.3"
+    vite-trello-web-base-project "file:C:/Users/ACER/AppData/Local/Yarn/Cache/v6/npm-vite-trello-web-base-project-0.0.0-90af13da-ca26-4648-8f66-3cce61ae1c5f-1757224694202/node_modules/vite-trello-web-base-project"
 
 vite@^6.3.5:
   version "6.3.5"

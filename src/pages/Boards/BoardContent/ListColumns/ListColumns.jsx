@@ -9,7 +9,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import Column from './Column/Column'
 import { toast } from 'react-toastify'
 
-function ListColumns({ columns, createNewColumn, createNewCard }) {
+function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDetails }) {
   const [openNewColumnForm, setOpenNewColumnForm] = useState(false)
   const toggleOpenNewColumnForm = () => setOpenNewColumnForm(!openNewColumnForm)
 
@@ -42,7 +42,14 @@ function ListColumns({ columns, createNewColumn, createNewCard }) {
         height: '100%',
         '&::-webkit-scrollbar-track': { m: 2 }
       }}>
-        {columns?.map(column => (<Column column={column} key={column._id } createNewCard={createNewCard} />))}
+        {columns?.map(column => (
+          <Column
+            column={column}
+            key={column._id }
+            createNewCard={createNewCard}
+            deleteColumnDetails={deleteColumnDetails}
+          />
+        ))}
 
         {/* Box Add new Column */}
         {!openNewColumnForm ? (
