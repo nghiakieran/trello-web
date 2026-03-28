@@ -5,17 +5,26 @@ import NoteAddIcon from '@mui/icons-material/NoteAdd'
 import { SortableContext, horizontalListSortingStrategy } from '@dnd-kit/sortable'
 import { TextField } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
-
-import Column from './Column/Column'
 import { toast } from 'react-toastify'
+import { useDispatch, useSelector } from 'react-redux'
+import { cloneDeep } from 'lodash'
 
-function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDetails }) {
+import { generatePlaceholderCard } from '~/utils/formatters'
+import Column from './Column/Column'
+import { selectCurrentActiveBoard, updateCurrentActiveBoard } from '~/redux/slice/activeBoardSlice'
+import { createNewColumnAPI } from '~/apis'
+
+
+function ListColumns({ columns }) {
+  const dispatch = useDispatch()
+  const board = useSelector(selectCurrentActiveBoard)
+
   const [openNewColumnForm, setOpenNewColumnForm] = useState(false)
   const toggleOpenNewColumnForm = () => setOpenNewColumnForm(!openNewColumnForm)
 
   const [newColumnTitle, setNewColumnTitle] = useState('')
 
-  const handleAddColumn = () => {
+  const handleAddColumn = async () => {
     if (!newColumnTitle) {
       toast.error('Please enter Column title!')
       return
@@ -25,7 +34,18 @@ function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDeta
       title: newColumnTitle
     }
 
-    createNewColumn(newColumnData)
+    const createdColumn = await createNewColumnAPI({
+      ...newColumnData,
+      boardId: board._id
+    })
+
+    createdColumn.cards = [generatePlaceholderCard(createdColumn)]
+    createdColumn.cardOrderIds = [generatePlaceholderCard(createdColumn)._id]
+
+    const newBoard = cloneDeep(board)
+    newBoard.columns.push(createdColumn)
+    newBoard.columnOrderIds.push(createdColumn._id)
+    dispatch(updateCurrentActiveBoard(newBoard))
 
     toggleOpenNewColumnForm()
     setNewColumnTitle('')
@@ -43,12 +63,7 @@ function ListColumns({ columns, createNewColumn, createNewCard, deleteColumnDeta
         '&::-webkit-scrollbar-track': { m: 2 }
       }}>
         {columns?.map(column => (
-          <Column
-            column={column}
-            key={column._id }
-            createNewCard={createNewCard}
-            deleteColumnDetails={deleteColumnDetails}
-          />
+          <Column column={column} key={column._id } />
         ))}
 
         {/* Box Add new Column */}
