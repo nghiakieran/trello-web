@@ -10,6 +10,7 @@ import {
   moveCardToDifferenceColumnAPI
 } from '~/apis'
 import { cloneDeep } from 'lodash'
+import { useParams } from 'react-router-dom'
 
 import { Box, CircularProgress, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
@@ -18,12 +19,11 @@ import { fetchBoardDetailsAPI, selectCurrentActiveBoard, updateCurrentActiveBoar
 function Board() {
   const dispatch = useDispatch()
   const board = useSelector(selectCurrentActiveBoard)
+  const { boardId } = useParams()
 
   useEffect(() => {
-    // hardcode
-    const boardId = '68b3cd8fcbf6838882060c3c'
     dispatch(fetchBoardDetailsAPI(boardId))
-  }, [dispatch])
+  }, [dispatch, boardId])
 
   const moveColumns = (dndOrderedColumns) => {
     const dndOrderedColumnsIds = dndOrderedColumns.map((c) => c._id)

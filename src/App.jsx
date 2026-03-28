@@ -1,12 +1,17 @@
+import { Navigate, Route, Routes } from 'react-router-dom'
 import Board from '~/pages/Boards/_id'
+import NotFound from './pages/404/NotFound'
 
 function App() {
   return (
-    <>
-      {/* React Router Dom /boards /boards/{boards_id} */}
-      {/* Boards Details */}
-      <Board />
-    </>
+    <Routes>
+      <Route path='/' element={
+        <Navigate to='/boards/68b3cd8fcbf6838882060c3c' replace />
+      } />
+      <Route path='/boards/:boardId' element={<Board />} />
+
+      <Route path='*' element={<NotFound />} />
+    </Routes>
   )
 }
 
