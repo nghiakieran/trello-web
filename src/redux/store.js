@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { activeBoardReducer } from './slice/activeBoardSlice'
+import { userReducer } from './slice/userSlice'
 
 export const store = configureStore({
   reducer: {
-    activeBoard: activeBoardReducer
-  },
+    activeBoard: activeBoardReducer,
+    user: userReducer
+  }
 })

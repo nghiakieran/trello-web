@@ -12,9 +12,9 @@ import {
 import { cloneDeep } from 'lodash'
 import { useParams } from 'react-router-dom'
 
-import { Box, CircularProgress, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchBoardDetailsAPI, selectCurrentActiveBoard, updateCurrentActiveBoard } from '~/redux/slice/activeBoardSlice'
+import Loading from '~/components/Loading/Loading'
 
 function Board() {
   const dispatch = useDispatch()
@@ -64,12 +64,7 @@ function Board() {
   }
 
   if (!board) {
-    return (
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2, height: '100vh', width: '100vw' }}>
-        <CircularProgress />
-        <Typography>Loading Board...</Typography>
-      </Box>
-    )
+    return ( <Loading caption='Loading Board...' /> )
   }
 
   return (

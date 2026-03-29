@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Avatar from '@mui/material/Avatar'
@@ -12,14 +12,22 @@ import Zoom from '@mui/material/Zoom'
 import { useForm } from 'react-hook-form'
 import { FIELD_REQUIRED_MESSAGE, EMAIL_RULE, EMAIL_RULE_MESSAGE, PASSWORD_RULE, PASSWORD_RULE_MESSAGE, PASSWORD_CONFIRMATION_MESSAGE } from '~/utils/validators'
 import FieldErrorAlert from '~/components/Form/FieldErrorAlert'
+import { toast } from 'react-toastify'
+import { registerNewUserAPI } from '~/apis'
 
 
 function RegisterForm() {
+  const navigate = useNavigate()
   const { register, handleSubmit, formState: { errors }, watch } = useForm()
 
   const submitRegister = (data) => {
-    console.log('', data)
+    const { email, password } = data
+    toast.promise(registerNewUserAPI({ email, password }),
+      { pending: 'Registration in progress...' }).then(user => {
+      navigate(`/login?registedEmail=${user.email}`)
+    })
   }
+
   return (
     <form onSubmit={handleSubmit(submitRegister)}>
       <Zoom in={true} style={{ transitionDelay: '200ms' }}>
@@ -90,6 +98,7 @@ function RegisterForm() {
           </Box>
           <CardActions sx={{ padding: '0 1em 1em 1em' }}>
             <Button
+              className='interceptor-loading'
               type="submit"
               variant="contained"
               color="primary"
