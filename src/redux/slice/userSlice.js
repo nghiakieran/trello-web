@@ -27,7 +27,7 @@ export const userSlice = createSlice({
 })
 
 // export const { } = userSlice.actions
-export const selectCurrentuser = (state) => {
-  return state.user.currentuser
+export const selectCurrentUser = (state) => {
+  return state.user.currentUser
 }
 export const userReducer = userSlice.reducer
