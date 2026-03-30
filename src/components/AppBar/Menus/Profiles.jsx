@@ -9,7 +9,11 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Tooltip from '@mui/material/Tooltip'
+import { useConfirm } from 'material-ui-confirm'
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { selectCurrentUser, loggoutUserAPI } from '~/redux/slice/userSlice'
 
 function Profiles() {
   const [anchorEl, setAnchorEl] = useState(null)
@@ -20,6 +24,21 @@ function Profiles() {
   const handleClose = () => {
     setAnchorEl(null)
   }
+
+  const dispatch = useDispatch()
+  const currentUser = useSelector(selectCurrentUser)
+
+  const confirmLogout = useConfirm()
+  const handleLogout = () => {
+    confirmLogout({
+      title:'Log out of your account?',
+      confirmationText: 'Confirm',
+      cancellationText: 'Cancel'
+    }).then(() => {
+      dispatch(loggoutUserAPI())
+    }).catch(() => {})
+  }
+
   return (
     <Box>
       <Tooltip title="Account settings">
@@ -30,8 +49,11 @@ function Profiles() {
           aria-controls={open ? 'basic-menu-profiles' : undefined}
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}>
-          <Avatar src='https://scontent.fdad3-6.fna.fbcdn.net/v/t39.30808-6/455282620_1561004121430663_1773748291795086050_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=GHTCJC0K_X4Q7kNvgG_8oOr&_nc_oc=AdjCO_dMhbVhrqFfdewiEbopgyDime9ayXc2Hn-NxdjG7L2COyZWciFcOzczLkT-Qb2EXUfOaCYHXdmjz4wipKUj&_nc_zt=23&_nc_ht=scontent.fdad3-6.fna&_nc_gid=AZVNzX6LPJUWLdzv77p6dIh&oh=00_AYANIaH536gc0g0WlY4HeR8QzgqHz9P0WmNhujyBai1RKw&oe=67AB6DCD'
-            sx={{ width: 36, height: 36 }} />
+          <Avatar
+            src={currentUser?.avatar}
+            alt='avatar'
+            sx={{ width: 36, height: 36 }}
+          />
         </IconButton>
       </Tooltip>
       <Menu
@@ -39,15 +61,18 @@ function Profiles() {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
+        onClick={handleClose}
         MenuListProps={{
           'aria-labelledby': 'basic-button-profiles'
         }}
       >
-        <MenuItem>
-          <Avatar sx={{ width: 28, height: 28, mr: 2 }} /> Profile
-        </MenuItem>
-        <MenuItem>
-          <Avatar sx={{ width: 28, height: 28, mr: 2 }} /> My account
+        <MenuItem sx={{
+          '&:hover': { color: 'success.light' }
+        }}>
+          <Avatar
+            src={currentUser?.avatar}
+            alt='avatar'
+            sx={{ width: 28, height: 28, mr: 2 }} /> Profile
         </MenuItem>
         <Divider />
         <MenuItem>
@@ -62,9 +87,16 @@ function Profiles() {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem>
+        <MenuItem
+          onClick={handleLogout}
+          sx={{
+            '&:hover': {
+              color: 'warning.dark',
+              '& .loggout-icon': { color: 'warning.dark' }
+            }
+          }}>
           <ListItemIcon>
-            <Logout fontSize="small" />
+            <Logout className='loggout-icon' fontSize="small" />
           </ListItemIcon>
           Logout
         </MenuItem>
