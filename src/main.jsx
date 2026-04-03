@@ -10,6 +10,7 @@ import { ConfirmProvider } from 'material-ui-confirm'
 import { Provider } from 'react-redux'
 import { store } from '~/redux/store'
 import { BrowserRouter } from 'react-router-dom'
+import { GlobalStyles } from '@mui/material'
 
 // redux persist
 import { PersistGate } from 'redux-persist/integration/react'
@@ -32,6 +33,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             cancellationButtonProps: { color: 'inherit' },
             confirmationButtonProps: { color: 'secondary', variant: 'outlined' }
           }}>
+            <GlobalStyles styles={{ a: { color: 'inherit', textDecoration: 'none' } }} />
             <CssBaseline />
             <App />
             <ToastContainer position='bottom-left' theme='colored' />
