@@ -14,7 +14,7 @@ import { useParams } from 'react-router-dom'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchBoardDetailsAPI, selectCurrentActiveBoard, updateCurrentActiveBoard } from '~/redux/slice/activeBoardSlice'
-import Loading from '~/components/Loading/Loading'
+import PageLoadingSpinner from '~/components/Loading/PageLoadingSpinner'
 
 function Board() {
   const dispatch = useDispatch()
@@ -64,7 +64,7 @@ function Board() {
   }
 
   if (!board) {
-    return ( <Loading caption='Loading Board...' /> )
+    return ( <PageLoadingSpinner caption='Loading Board...' /> )
   }
 
   return (

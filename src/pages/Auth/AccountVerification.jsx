@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Navigate, useSearchParams } from 'react-router-dom'
 import { verifyAccountAPI } from '~/apis'
-import Loading from '~/components/Loading/Loading'
+import PageLoadingSpinner from '~/components/Loading/PageLoadingSpinner'
 
 const AccountVerification = () => {
   const [searchParams] = useSearchParams()
@@ -17,7 +17,7 @@ const AccountVerification = () => {
   if (!token || !email) return <Navigate to='/404' />
 
   if (!verified) {
-    return <Loading caption='Verifying account...' />
+    return <PageLoadingSpinner caption='Verifying account...' />
   }
 
   return <Navigate to={`/login?verifiedEmail=${email}`} />
